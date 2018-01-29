@@ -16,7 +16,7 @@ jobs:
     environment:
       BOOT_JVM_OPTIONS: -Xmx2048m # Customize the JVM maximum heap limit
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
-      CLJDOC_ANALYZER_VERSION: 47ef2ee59d1023ddf95e45a7d57ceb81143e1df0
+      CLJDOC_ANALYZER_VERSION: bdd0af927ed693b36b55f75c819920cabe6f318c
 
     # TODO implement this to be notified once a build is done
     # notify:
@@ -61,8 +61,8 @@ jobs:
           working_directory: ~/cljdoc
 
       - store_artifacts:
-          path: ~/cljdoc/target/codox-edn
-          destination: /codox-edn
+          path: ~/cljdoc/target/cljdoc-edn
+          destination: /cljdoc-edn
 
       - save_cache:
           paths:
