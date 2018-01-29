@@ -34,7 +34,7 @@ jobs:
 
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum /tmp/cache-key }}
+          - v1-dependencies-{{ checksum "/tmp/cache-key" }}
           - v1-dependencies- # fallback if not cache found
 
       - run:
@@ -58,4 +58,4 @@ jobs:
             - ~/cljdoc
             - ~/.m2
             - ~/.boot
-          key: v1-dependencies-{{ checksum /tmp/cache-key }}
+          key: v1-dependencies-{{ checksum "/tmp/cache-key" }}
