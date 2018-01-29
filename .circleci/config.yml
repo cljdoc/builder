@@ -38,16 +38,21 @@ jobs:
           - v1-dependencies- # fallback if not cache found
 
       - run:
+          name: Clone cljdoc repo
           command: if cd cljdoc; then git pull; else git clone $CLJDOC_REPO; fi
           working_directory: ~/
 
       - run:
+          name: Checkout cljdoc repo
           command: git reset --hard $CLJDOC_ANALYZER_VERSION
           working_directory: ~/cljdoc
 
-      - run: echo "$CLJDOC_PROJECT $CLJDOC_PROJECT_VERSION" "$CLJDOC_PROJECT_JAR"
+      - run:
+          name: Print build parameters
+          command: echo "$CLJDOC_PROJECT $CLJDOC_PROJECT_VERSION" "$CLJDOC_PROJECT_JAR"
 
       - run:
+          name: Run analysis
           command: ./script/analyze.sh ${CLJDOC_PROJECT:-$PROJECT_FALLBACK} ${CLJDOC_PROJECT_VERSION:-$PROJECT_VERSION_FALLBACK} ${CLJDOC_PROJECT_JAR:-$PROJECT_JAR_FALLBACK}
           environment:
             - PROJECT_FALLBACK: bidi
