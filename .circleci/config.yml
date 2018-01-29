@@ -30,7 +30,7 @@ jobs:
       # Env vars cannot be used for cache keys so we put
       # it in a file and use the checksum of that file
       # https://discuss.circleci.com/t/10994/9
-      run: echo "$CLJDOC_ANALYZER_VERSION" > /tmp/cache-key
+      - run: echo "$CLJDOC_ANALYZER_VERSION" > /tmp/cache-key
 
       - restore_cache:
           keys:
