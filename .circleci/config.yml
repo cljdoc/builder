@@ -26,9 +26,15 @@ jobs:
 
     steps:
       - checkout
+
+      # Env vars cannot be used for cache keys so we put
+      # it in a file and use the checksum of that file
+      # https://discuss.circleci.com/t/10994/9
+      run: echo "$CLJDOC_ANALYZER_VERSION" > /tmp/cache-key
+
       - restore_cache:
           keys:
-          - v1-dependencies-$CLJDOC_ANALYZER_VERSION
+          - v1-dependencies-{{ checksum /tmp/cache-key }}
           - v1-dependencies- # fallback if not cache found
 
       - run:
@@ -52,4 +58,4 @@ jobs:
             - ~/cljdoc
             - ~/.m2
             - ~/.boot
-          key: v1-dependencies-$CLJDOC_ANALYZER_VERSION
+          key: v1-dependencies-{{ checksum /tmp/cache-key }}
