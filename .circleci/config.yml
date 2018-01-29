@@ -15,6 +15,7 @@ jobs:
 
     environment:
       BOOT_JVM_OPTIONS: -Xmx2048m # Customize the JVM maximum heap limit
+      CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
       CLJDOC_ANALYZER_VERSION: 47ef2ee59d1023ddf95e45a7d57ceb81143e1df0
 
     # TODO implement this to be notified once a build is done
@@ -31,7 +32,7 @@ jobs:
           - v1-dependencies- # fallback if not cache found
 
       - run:
-          command: git clone https://github.com/martinklepsch/cljdoc.git
+          command: if cd cljdoc; then git pull; else git clone $CLJDOC_REPO; fi
           working_directory: ~/
 
       - run:
