@@ -44,6 +44,7 @@ jobs:
 
       - store_artifacts:
           path: ~/cljdoc/target/codox-edn
+          destination: /codox-edn
 
       - save_cache:
           paths:
