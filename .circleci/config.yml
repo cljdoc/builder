@@ -27,6 +27,7 @@ jobs:
     notify:
       webhooks:
         - url: http://api.cljdoc.xyz:8000/hooks/circle-ci
+        - url: http://66279947.ngrok.io/hooks/circle-ci
 
     steps:
       - checkout
