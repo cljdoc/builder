@@ -3,6 +3,11 @@
 # Check https://circleci.com/docs/2.0/language-clojure/ for more details
 #
 version: 2
+notify:
+  webhooks:
+    - url: http://api.cljdoc.xyz:8000/hooks/circle-ci
+    - url: http://66279947.ngrok.io/hooks/circle-ci
+
 jobs:
   build:
     docker:
@@ -17,17 +22,6 @@ jobs:
       BOOT_JVM_OPTIONS: -Xmx2048m # Customize the JVM maximum heap limit
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
       CLJDOC_ANALYZER_VERSION: 71b0faa68bec08910d6b7d86feb4501638f5b971
-
-    # TODO implement this to be notified once a build is done
-    # notify:
-    #   webhooks:
-    #     # A list of hook hashes, containing the URL field
-    #     - url: https://example.com/hooks/circle
-
-    notify:
-      webhooks:
-        - url: http://api.cljdoc.xyz:8000/hooks/circle-ci
-        - url: http://66279947.ngrok.io/hooks/circle-ci
 
     steps:
       - checkout
