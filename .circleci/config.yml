@@ -24,6 +24,10 @@ jobs:
     #     # A list of hook hashes, containing the URL field
     #     - url: https://example.com/hooks/circle
 
+    notify:
+      webhooks:
+        - url: http://api.cljdoc.xyz/hooks/circle-ci
+
     steps:
       - checkout
 
