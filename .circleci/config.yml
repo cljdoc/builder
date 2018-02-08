@@ -60,7 +60,7 @@ jobs:
           working_directory: ~/cljdoc
 
       - store_artifacts:
-          path: ~/cljdoc/target/cljdoc-edn
+          path: /tmp/cljdoc-target/cljdoc-edn
           destination: /cljdoc-edn
 
       - save_cache:
