@@ -21,7 +21,7 @@ jobs:
     environment:
       BOOT_JVM_OPTIONS: -Xmx2048m # Customize the JVM maximum heap limit
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
-      CLJDOC_ANALYZER_VERSION: 71b0faa68bec08910d6b7d86feb4501638f5b971
+      CLJDOC_ANALYZER_VERSION: 87ab11d6a267a15156e71b95e99eb8f0edba04a5
 
     steps:
       - checkout
