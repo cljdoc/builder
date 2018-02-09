@@ -8,4 +8,4 @@
 
 #### Running builds via Circle CI API
 
-See [`script/trigger-build.sh`](https://github.com/martinklepsch/cljdoc/blob/master/script/trigger-build.sh) in the main [cljdoc repo](https://github.com/martinklepsch/cljdoc/).
+See [`script/trigger-circle-analysis.sh`](https://github.com/martinklepsch/cljdoc/blob/master/script/trigger-circle-analysis.sh) in the main [cljdoc repo](https://github.com/martinklepsch/cljdoc/).
