@@ -5,7 +5,7 @@
 version: 2
 notify:
   webhooks:
-    - url: http://cljdoc.xyz/api/hooks/circle-ci
+    - url: https://cljdoc.xyz/api/hooks/circle-ci
 
 jobs:
   build:
