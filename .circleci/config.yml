@@ -5,8 +5,7 @@
 version: 2
 notify:
   webhooks:
-    - url: http://api.cljdoc.xyz:8000/api/hooks/circle-ci
-    - url: http://66279947.ngrok.io/hooks/circle-ci
+    - url: http://cljdoc.xyz/api/hooks/circle-ci
 
 jobs:
   build:
@@ -21,7 +20,7 @@ jobs:
     environment:
       BOOT_JVM_OPTIONS: -Xmx2048m # Customize the JVM maximum heap limit
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
-      CLJDOC_ANALYZER_VERSION: d2c4b149bb8e588cd5029e2d624a08000625ad29
+      CLJDOC_ANALYZER_VERSION: 35118797b6a41d0cb582712d8632a64fcf94a6b8
 
     steps:
       - checkout
