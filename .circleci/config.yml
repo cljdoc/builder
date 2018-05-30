@@ -13,7 +13,7 @@ jobs:
       # specify the version you desire here
       # https://discuss.circleci.com/t/builds-getting-killed-with-vague-message-received-signal-killed/10214/9
       - image: circleci/clojure:boot-2.7.1
-        cmd: ["/bin/bash"]
+        command: "/bin/bash"
 
     working_directory: ~/repo
 
