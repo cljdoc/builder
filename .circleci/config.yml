@@ -11,7 +11,8 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      # https://discuss.circleci.com/t/builds-getting-killed-with-vague-message-received-signal-killed/10214/9
+      # reference:
+      # https://circleci.com/docs/2.0/configuration-reference/#docker--machine--macosexecutor
       - image: circleci/clojure:boot-2.7.1
         command: "/bin/bash"
 
