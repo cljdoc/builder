@@ -53,11 +53,12 @@ jobs:
 
       - run:
           name: Run analysis
-          command: ./script/analyze.sh ${CLJDOC_PROJECT:-$PROJECT_FALLBACK} ${CLJDOC_PROJECT_VERSION:-$PROJECT_VERSION_FALLBACK} ${CLJDOC_PROJECT_JAR:-$PROJECT_JAR_FALLBACK}
+          command: ./script/analyze.sh ${CLJDOC_PROJECT:-$PROJECT_FALLBACK} ${CLJDOC_PROJECT_VERSION:-$PROJECT_VERSION_FALLBACK} ${CLJDOC_PROJECT_JAR:-$PROJECT_JAR_FALLBACK} ${CLJDOC_PROJECT_POM:-$PROJECT_POM_FALLBACK}
           environment:
             - PROJECT_FALLBACK: bidi
             - PROJECT_VERSION_FALLBACK: 2.1.3
             - PROJECT_JAR_FALLBACK: https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.jar
+            - PROJECT_POM_FALLBACK: https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.pom
           working_directory: ~/cljdoc
 
       - store_artifacts:
