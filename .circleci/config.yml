@@ -36,11 +36,12 @@ jobs:
           - v1-dependencies- # fallback if not cache found
 
       - run:
+          name: Download cljdoc code
           command: |
             curl -L https://github.com/martinklepsch/cljdoc/archive/$CLJDOC_ANALYZER_VERSION.zip -o cljdoc.zip
             unzip cljdoc.zip
             mv -f cljdoc-$CLJDOC_ANALYZER_VERSION cljdoc
-
+            
       # - run:
       #     name: Clone cljdoc repo
       #     command: if cd cljdoc; then git pull; else git clone $CLJDOC_REPO; fi
