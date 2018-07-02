@@ -13,14 +13,12 @@ jobs:
       # specify the version you desire here
       # reference:
       # https://circleci.com/docs/2.0/configuration-reference/#docker--machine--macosexecutor
-      - image: circleci/clojure:boot-2.7.1
+      - image: circleci/clojure:tools-deps
         command: "/bin/bash"
 
     working_directory: ~/repo
 
     environment:
-      BOOT_JVM_OPTIONS: -Xmx3072m # Customize the JVM maximum heap limit
-      _JAVA_OPTIONS: "-Xms512m -Xmx2048m"
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
       CLJDOC_ANALYZER_VERSION: tools-deps
 
