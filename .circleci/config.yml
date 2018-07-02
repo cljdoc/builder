@@ -22,7 +22,7 @@ jobs:
       BOOT_JVM_OPTIONS: -Xmx3072m # Customize the JVM maximum heap limit
       _JAVA_OPTIONS: "-Xms512m -Xmx2048m"
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
-      CLJDOC_ANALYZER_VERSION: 06dbb29e4b85ddd57e6501d8925b83860c0899e2
+      CLJDOC_ANALYZER_VERSION: tools-deps
 
     steps:
       - checkout
@@ -44,7 +44,7 @@ jobs:
 
       - run:
           name: Checkout cljdoc repo
-          command: git reset --hard $CLJDOC_ANALYZER_VERSION
+          command: git checkout $CLJDOC_ANALYZER_VERSION
           working_directory: ~/cljdoc
 
       - run:
@@ -62,7 +62,7 @@ jobs:
           working_directory: ~/cljdoc
 
       - store_artifacts:
-          path: /tmp/cljdoc-target/cljdoc-edn
+          path: ~/cljdoc/analysis-out
           destination: /cljdoc-edn
 
       - save_cache:
