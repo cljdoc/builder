@@ -36,14 +36,20 @@ jobs:
           - v1-dependencies- # fallback if not cache found
 
       - run:
-          name: Clone cljdoc repo
-          command: if cd cljdoc; then git pull; else git clone $CLJDOC_REPO; fi
-          working_directory: ~/
+          command: |
+            curl -L https://github.com/martinklepsch/cljdoc/archive/$CLJDOC_ANALYZER_VERSION.zip -o cljdoc.zip
+            unzip cljdoc.zip
+            mv -f cljdoc-$CLJDOC_ANALYZER_VERSION cljdoc
 
-      - run:
-          name: Checkout cljdoc repo
-          command: git checkout $CLJDOC_ANALYZER_VERSION
-          working_directory: ~/cljdoc
+      # - run:
+      #     name: Clone cljdoc repo
+      #     command: if cd cljdoc; then git pull; else git clone $CLJDOC_REPO; fi
+      #     working_directory: ~/
+
+      # - run:
+      #     name: Checkout cljdoc repo
+      #     command: git checkout $CLJDOC_ANALYZER_VERSION
+      #     working_directory: ~/cljdoc
 
       - run:
           name: Print build parameters
