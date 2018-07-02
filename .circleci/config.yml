@@ -38,6 +38,7 @@ jobs:
       - run:
           name: Download cljdoc code
           command: |
+            rm -rf cljdoc
             curl -L https://github.com/martinklepsch/cljdoc/archive/$CLJDOC_ANALYZER_VERSION.zip -o cljdoc.zip
             unzip cljdoc.zip
             mv -f cljdoc-$CLJDOC_ANALYZER_VERSION cljdoc
@@ -72,7 +73,5 @@ jobs:
 
       - save_cache:
           paths:
-            - ~/cljdoc
             - ~/.m2
-            - ~/.boot
           key: v1-dependencies-{{ checksum "/tmp/cache-key" }}
