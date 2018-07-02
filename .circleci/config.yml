@@ -65,8 +65,8 @@ jobs:
           working_directory: ~/cljdoc
 
       - store_artifacts:
-          path: ~/cljdoc/analysis-out
-          destination: /cljdoc-edn
+          path: ~/cljdoc/analysis-out/
+          destination: /
 
       - save_cache:
           paths:
