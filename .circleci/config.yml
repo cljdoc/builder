@@ -18,7 +18,7 @@ jobs:
 
     environment:
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
-      CLJDOC_ANALYZER_VERSION: 3b96fa293d55399a955e37ef81a6a15e13d7eb33
+      CLJDOC_ANALYZER_VERSION: 5f4eb5611ec8b7b3d85a628c839d86dbefe85988
 
     steps:
       # Env vars cannot be used for cache keys so we put
@@ -65,7 +65,7 @@ jobs:
           working_directory: ~/cljdoc
 
       - store_artifacts:
-          path: ~/cljdoc/analysis-out/
+          path: /tmp/cljdoc/analysis-out/
           destination: /
 
       - save_cache:
