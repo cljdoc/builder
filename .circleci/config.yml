@@ -18,13 +18,13 @@ jobs:
 
     environment:
       CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
-      CLJDOC_ANALYZER_VERSION: 65404db681e14acda5e5bee74e6d56403177e2b6
+      VERSION_FALLBACK: 65404db681e14acda5e5bee74e6d56403177e2b6
 
     steps:
       # Env vars cannot be used for cache keys so we put
       # it in a file and use the checksum of that file
       # https://discuss.circleci.com/t/10994/9
-      - run: echo "$CLJDOC_ANALYZER_VERSION" > /tmp/cache-key
+      - run: echo ${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK} > /tmp/cache-key
 
       - restore_cache:
           keys:
@@ -36,9 +36,9 @@ jobs:
           working_directory: ~/
           command: |
             rm -rf cljdoc
-            curl -L https://github.com/martinklepsch/cljdoc/archive/$CLJDOC_ANALYZER_VERSION.zip -o cljdoc.zip
+            curl -L https://github.com/martinklepsch/cljdoc/archive/${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK}.zip -o cljdoc.zip
             unzip cljdoc.zip
-            mv -f cljdoc-$CLJDOC_ANALYZER_VERSION cljdoc
+            mv -f cljdoc-${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK} cljdoc
 
       # - run:
       #     name: Clone cljdoc repo
