@@ -3,10 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-clojure/ for more details
 #
 version: 2
-notify:
-  webhooks:
-    - url: https://cljdoc.org/api/hooks/circle-ci
-
 jobs:
   build:
     docker:
