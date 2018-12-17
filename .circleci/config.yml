@@ -42,10 +42,10 @@ jobs:
 
       - run:
           name: Run analysis
-          command: ./script/analyze-ng.sh ${CLJDOC_ANALYZER_ARGS:-FALLBACK}
+          command: clojure -m cljdoc.analysis.runner-ng ${CLJDOC_ANALYZER_ARGS:-FALLBACK}
           environment:
             - FALLBACK: '{:project "bidi" :version "2.1.3" :jarpath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.jar" :pompath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.pom"}'
-          working_directory: ~/cljdoc
+          working_directory: ~/cljdoc/modules/analysis-runner
 
       - store_artifacts:
           path: /tmp/cljdoc/analysis-out/
