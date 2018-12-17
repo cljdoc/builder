@@ -14,7 +14,7 @@ jobs:
 
     environment:
       CLJDOC_REPO: https://github.com/cljdoc/cljdoc.git
-      VERSION_FALLBACK: 4594c63126039ef879655a77e85dc47ed90c3932
+      VERSION_FALLBACK: 0a34ca218c9fee268d88e055e6820c7fd3c39993
 
     steps:
       # Env vars cannot be used for cache keys so we put
