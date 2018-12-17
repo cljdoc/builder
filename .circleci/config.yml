@@ -13,7 +13,7 @@ jobs:
         command: "/bin/bash"
 
     environment:
-      CLJDOC_REPO: https://github.com/martinklepsch/cljdoc.git
+      CLJDOC_REPO: https://github.com/cljdoc/cljdoc.git
       VERSION_FALLBACK: 65404db681e14acda5e5bee74e6d56403177e2b6
 
     steps:
@@ -32,32 +32,19 @@ jobs:
           working_directory: ~/
           command: |
             rm -rf cljdoc
-            curl -L https://github.com/martinklepsch/cljdoc/archive/${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK}.zip -o cljdoc.zip
+            curl -L https://github.com/cljdoc/cljdoc/archive/${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK}.zip -o cljdoc.zip
             unzip cljdoc.zip
             mv -f cljdoc-${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK} cljdoc
 
-      # - run:
-      #     name: Clone cljdoc repo
-      #     command: if cd cljdoc; then git pull; else git clone $CLJDOC_REPO; fi
-      #     working_directory: ~/
-
-      # - run:
-      #     name: Checkout cljdoc repo
-      #     command: git checkout $CLJDOC_ANALYZER_VERSION
-      #     working_directory: ~/cljdoc
-
       - run:
           name: Print build parameters
-          command: echo "$CLJDOC_PROJECT $CLJDOC_PROJECT_VERSION" "$CLJDOC_PROJECT_JAR"
+          command: echo "$CLJDOC_ANALYZER_ARGS"
 
       - run:
           name: Run analysis
-          command: ./script/analyze.sh ${CLJDOC_PROJECT:-$PROJECT_FALLBACK} ${CLJDOC_PROJECT_VERSION:-$PROJECT_VERSION_FALLBACK} ${CLJDOC_PROJECT_JAR:-$PROJECT_JAR_FALLBACK} ${CLJDOC_PROJECT_POM:-$PROJECT_POM_FALLBACK}
+          command: ./script/analyze-ng.sh ${CLJDOC_ANALYZER_ARGS:-FALLBACK}
           environment:
-            - PROJECT_FALLBACK: bidi
-            - PROJECT_VERSION_FALLBACK: 2.1.3
-            - PROJECT_JAR_FALLBACK: https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.jar
-            - PROJECT_POM_FALLBACK: https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.pom
+            - FALLBACK: '{:project "bidi" :version "2.1.3" :jarpath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.jar" :pompath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.pom"}'
           working_directory: ~/cljdoc
 
       - store_artifacts:
