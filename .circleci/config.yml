@@ -13,13 +13,13 @@ jobs:
         command: "/bin/bash"
 
     environment:
-      VERSION_FALLBACK: 02d0ca4b982c60a5920cf391b3eb8280b4aa97dd
+      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/lread/cljdoc-analyzer.git" :sha "02d0ca4b982c60a5920cf391b3eb8280b4aa97dd"}}})'
 
     steps:
       # Env vars cannot be used for cache keys so we put
       # it in a file and use the checksum of that file
       # https://discuss.circleci.com/t/10994/9
-      - run: echo ${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK} > /tmp/cache-key
+      - run: echo ${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK} > /tmp/cache-key
 
       - restore_cache:
           keys:
@@ -27,24 +27,14 @@ jobs:
           - v1-dependencies- # fallback if not cache found
 
       - run:
-          name: Download cljdoc code
-          command: |
-            rm -rf cljdoc
-            curl -L https://github.com/lread/cljdoc-analyzer/archive/${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK}.zip -o cljdoc.zip
-            unzip cljdoc.zip
-            mv -f cljdoc-analyzer-${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK}/* .
-            rm -rf cljdoc.zip cljdoc-analyzer-${CLJDOC_ANALYZER_VERSION:-$VERSION_FALLBACK}
-
-      - run:
           name: Print build parameters
           command: echo "$CLJDOC_ANALYZER_ARGS"
 
       - run:
           name: Run analysis
-          command: clojure -m cljdoc-analyzer.cljdoc-main "${CLJDOC_ANALYZER_ARGS:-$FALLBACK}"
+          command: clojure -Sdeps "${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK}" -m cljdoc-analyzer.cljdoc-main "${CLJDOC_ANALYZER_ARGS:-$FALLBACK}"
           environment:
             - FALLBACK: '{:project "bidi" :version "2.1.3" :jarpath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.jar" :pompath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.pom"}'
-          # working_directory: ~/cljdoc/modules/analysis-runner
 
       - store_artifacts:
           path: /tmp/cljdoc/analysis-out/
