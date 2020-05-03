@@ -13,7 +13,7 @@ jobs:
         command: "/bin/bash"
 
     environment:
-      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/lread/cljdoc-analyzer.git" :sha "02d0ca4b982c60a5920cf391b3eb8280b4aa97dd"}}})'
+      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "323343a3d644fed486621032bd0b5a21171e4b09"}}})'
 
     steps:
       # Env vars cannot be used for cache keys so we put
