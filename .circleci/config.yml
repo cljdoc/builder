@@ -6,20 +6,18 @@ version: 2
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      # reference:
-      # https://circleci.com/docs/2.0/configuration-reference/#docker--machine--macosexecutor
       - image: circleci/clojure:tools-deps
         command: "/bin/bash"
 
     environment:
-      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "323343a3d644fed486621032bd0b5a21171e4b09"}}})'
+      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "50d5e657172d99ec5fb046142747347036fb9859" }}})'
 
     steps:
       # Env vars cannot be used for cache keys so we put
       # it in a file and use the checksum of that file
-      # https://discuss.circleci.com/t/10994/9
-      - run: echo ${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK} > /tmp/cache-key
+      - run:
+          name: Setup for cache
+          command: echo ${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK} > /tmp/cache-key
 
       - restore_cache:
           keys:
@@ -27,16 +25,25 @@ jobs:
           - v1-dependencies- # fallback if not cache found
 
       - run:
+          name: Dump tools versions
+          command: |
+            echo java -version
+            java -version
+            echo clojure -Sdescribe
+            clojure -Sdescribe
+
+      - run:
           name: Print build parameters
           command: echo "$CLJDOC_ANALYZER_ARGS"
 
       - run:
           name: Run analysis
-          command: clojure -Sdeps "${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK}" -m cljdoc-analyzer.cljdoc-main "${CLJDOC_ANALYZER_ARGS:-$FALLBACK}"
+          command: clojure -Sdeps "${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK}" -M -m cljdoc-analyzer.cljdoc-main "${CLJDOC_ANALYZER_ARGS:-$FALLBACK}"
           environment:
             - FALLBACK: '{:project "bidi" :version "2.1.3" :jarpath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.jar" :pompath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.pom"}'
 
       - store_artifacts:
+          # WARNING: this path must match cljdoc-shared.analysis/output-prefix
           path: /tmp/cljdoc/analysis-out/
           destination: /
 
