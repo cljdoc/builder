@@ -1,11 +1,10 @@
-# Analyzer Service for [cljdoc](https://github.com/martinklepsch/cljdoc)
+# Builder - API Analysis Job Runner for cljdoc
 
-#### Basic Idea
+Cljdoc's API analysis supports the discovery of load-time generated APIs.
+This makes API analysis potentially unsafe.
 
-- Trigger parameterized builds that run [analyze.sh](https://github.com/martinklepsch/cljdoc/blob/master/script/analyze.sh)
-- Store resulting edn as build artifact
-- Tell non-sandboxed system that new stuff is available via webhook
+For this reason, and to pipeline API analysis, cljdoc offloads this task to the builder, a CircleCI job in this project.
 
-#### Running builds via Circle CI API
-
-See [`script/trigger-circle-analysis.sh`](https://github.com/martinklepsch/cljdoc/blob/master/script/trigger-circle-analysis.sh) in the main [cljdoc repo](https://github.com/martinklepsch/cljdoc/).
+1. The cljdoc web server triggers this project's CircleCI job to run cljdoc-analyzer on a specific library and waits for the job to complete
+2. The job saves the cljdoc-analyzer result, an edn file describing library's API, to a known location
+3. After the job is complete the cljdoc web server picks up the result and stores it as a build artifact
