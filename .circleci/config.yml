@@ -1,14 +1,12 @@
-# Clojure CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-clojure/ for more details
-#
-version: 2
+version: 2.1
+
 jobs:
   build:
     docker:
-      - image: circleci/clojure:tools-deps
-        command: "/bin/bash"
+      - image: clojure:temurin-17-tools-deps
 
+    # The fallback setup is only for sanity testing, when changes are made to the builder project itself it will use fallback values.
+    # When builder is triggered by cljdoc it will always pass in teh appropriate arguments.
     environment:
       DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "50d5e657172d99ec5fb046142747347036fb9859" }}})'
 
