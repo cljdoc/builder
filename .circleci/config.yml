@@ -36,7 +36,7 @@ jobs:
 
       - run:
           name: Run analysis
-          command: clojure -Sdeps "${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK}" -M -m cljdoc-analyzer.cljdoc-main "${CLJDOC_ANALYZER_ARGS:-$FALLBACK}"
+          command: clojure -Sdeps '${CLJDOC_ANALYZER_DEP:-$DEP_FALLBACK :jvm-opts ["--enable-preview"]}' -M -m cljdoc-analyzer.cljdoc-main "${CLJDOC_ANALYZER_ARGS:-$FALLBACK}"
           environment:
             - FALLBACK: '{:project "bidi" :version "2.1.3" :jarpath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.jar" :pompath "https://repo.clojars.org/bidi/bidi/2.1.3/bidi-2.1.3.pom"}'
 
