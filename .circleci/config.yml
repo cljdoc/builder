@@ -8,7 +8,7 @@ jobs:
     # The fallback setup is only for sanity testing, when changes are made to the builder project itself it will use fallback values.
     # When builder is triggered by cljdoc it will always pass in teh appropriate arguments.
     environment:
-      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "50d5e657172d99ec5fb046142747347036fb9859" }}})'
+      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "f1ef5d452266cd912559109c6653cd4b8e29b8fc"}}})'
 
     steps:
       # Env vars cannot be used for cache keys so we put
