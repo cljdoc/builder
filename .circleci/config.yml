@@ -6,9 +6,9 @@ jobs:
       - image: clojure:temurin-25-tools-deps-noble
 
     # The fallback setup is only for sanity testing, when changes are made to the builder project itself it will use fallback values.
-    # When builder is triggered by cljdoc it will always pass in teh appropriate arguments.
+    # When builder is triggered by cljdoc it will always pass in the appropriate arguments.
     environment:
-      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "f1ef5d452266cd912559109c6653cd4b8e29b8fc"}}})'
+      DEP_FALLBACK: '{:deps {cljdoc-analyzer {:git/url "https://github.com/cljdoc/cljdoc-analyzer.git" :sha "d8d2eaf4d3b60af07866cbd208ac024901caab5f"}}})'
 
     steps:
       # Env vars cannot be used for cache keys so we put
